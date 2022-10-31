@@ -292,11 +292,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Each observation is row; each row is an observation.</li>
 <li>Each value is a cell; each cell is a single value.</li>
 </ol>
-<p><a href="#fig-tidy-structure">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tidy-structure</span></a> shows the rules visually.</p>
+<p><span class="quarto-unresolved-ref">?fig-tidy-structure</span> shows the rules visually.</p>
 <p>Why ensure that your data is tidy? There are two main advantages:</p>
 <ol type="1">
 <li><p>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p></li>
-<li><p>There’s a specific advantage to placing variables in columns because it allows R’s vectorised nature to shine. As you learned in <a href="#sec-mutate"><span class="quarto-unresolved-ref">sec-mutate</span></a> and <a href="#sec-summarize"><span class="quarto-unresolved-ref">sec-summarize</span></a>, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.</p></li>
+<li><p>There’s a specific advantage to placing variables in columns because it allows R’s vectorised nature to shine. As you learned in <span class="quarto-unresolved-ref">?sec-mutate</span> and <span class="quarto-unresolved-ref">?sec-summarize</span>, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.</p></li>
 </ol>
 <p>dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data. Here are a couple of small examples showing how you might work with <code>table1</code>.</p>
 <p>In the next chapter, we’ll pivot back to workflow to discuss the importance of code style, keeping your code “tidy” (ha!) in order to make it easy for you and others to read and understand your code.</p>

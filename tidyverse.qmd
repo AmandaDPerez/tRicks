@@ -284,9 +284,6 @@ They are unwound row by row.
 A more challenging situation occurs when you have multiple variables crammed into the column names.
 For example, take the `who2` dataset:
 
-```{r}
-who2
-```
 
 This dataset records information about tuberculosis data collected by the WHO.
 There are two columns that are already variables and are easy to interpret: `country` and `year`.
@@ -298,20 +295,7 @@ The first piece, `sp`/`rel`/`ep`, describes the method used for the `diagnosis`,
 So in this case we have six variables: two variables are already columns, three variables are contained in the column name, and one variable is in the cell name.
 This requires two changes to our call to `pivot_longer()`: `names_to` gets a vector of column names and `names_sep` describes how to split the variable name up into pieces:
 
-```{r}
-who2 |> 
-  pivot_longer(
-    cols = !(country:year),
-    names_to = c("diagnosis", "gender", "age"), 
-    names_sep = "_",
-    values_to = "count"
-  )
-```
 
-An alternative to `names_sep` is `names_pattern`, which you can use to extract variables from more complicated naming scenarios, once you've learned about regular expressions in @sec-regular-expressions.
-
-Conceptually, this is only a minor variation on the simpler case you've already seen.
-@fig-pivot-multiple-names shows the basic idea: now, instead of the column names pivoting into a single column, they pivot into multiple columns.
 
 Of course, tidy data can't solve every problem so we also showed you some places were you might want to deliberately untidy your data into order to present to humans, feed into statistical models, or just pragmatically get shit done.
 If you particularly enjoyed this chapter and want to learn more about the underlying theory, you can learn more about the history and theoretical underpinnings in the [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) paper published in the Journal of Statistical Software.
