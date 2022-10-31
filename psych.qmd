@@ -17,7 +17,11 @@ Then, you will be able to load the library and use its functions.
 library(psych)
 ```
 
-We will be using the `bfi` dataset that is included in the `psych` package. It is described as follows: *25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included.*
+We will be using the `bfi` dataset that is included in the `psych` package. It is described as follows:
+
+> *25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included.*
+
+The code `data(bfi)` will take the `bfi` dataset from the `psych` package and add it to your R Environment.
 
 ```{r}
 #| label: data
@@ -29,14 +33,13 @@ data(bfi)
 
 The `describe()` function will return the following for any numeric variable: number of valid cases, mean, standard deviation, trimmed mean (with trim defaulting to .1) , median (standard or interpolated, mad: median absolute deviation (from the median), minimum, maximum, skew, kurtosis, standard error.
 
-Below I am `describing` the `A2` variable 
-which has responses to the Agreeableness statement: `Inquire about others' well-being`. 
+Below I am `describing` the `A2` variable which has responses to the Agreeableness statement: `Inquire about others' well-being`.
 
 ```{r}
 describe(bfi$A2)
 ```
 
-You can also describe by `groups` which will return descriptive statistics by groups. Below I am describing the `A2` variable by gender. Males = 1, Females =2.  
+You can also describe by `groups` which will return descriptive statistics by groups. Below I am describing the `A2` variable by gender. Males = 1, Females =2.
 
 ```{r}
 describeBy(A2 ~ gender, data = bfi)
@@ -48,5 +51,54 @@ Another useful function is `headTail` which will show the first and last couple 
 headTail(bfi)
 ```
 
+## Outlier Detection {#sec-outliers}
 
-## Scoring Scales
+Find and graph Mahalanobis squared distances to detect outliers using the `outlier` function. The Mahalanobis distance is D^2 = (x-μ)' Σ^-1 (x-μ) where Σ is the covariance of the x matrix. D2 may be used as a way of detecting outliers in distribution. Large D2 values, compared to the expected Chi Square values indicate an unusual response pattern. The outlier values are in the vector d2.The mahalanobis function in stats does not handle missing data, therefore I always add in `na.rm = TRUE` so that NA values are removed.
+
+```{r}
+d2 <- outlier(bfi, plot= TRUE, na.rm = TRUE)
+```
+
+## Scoring Scales {#sec-score}
+
+My biggest use of the `psych` package is scale scoring. This example will score the BFI (Big Five Inventory) personality scale.
+
+### Make a list of keys
+
+First, we need to create a list that will tell R how to score our scale. In the `bfi` dataset, the Openness items begin with O, the Conscientiousness items begin with C, the Extraversion items begin with E, the Agreeableness items begin with A, and the Nueroticism items begin with N. We will also need to account for any reverse score items by adding a '-' sign to the variable names that need to be reversed.
+
+```{r}
+ocean.key <- list(Open = c("O1",  "-O2", "O3",  "O4",  "-O5"),
+                  Cons = c("C1",  "C2",  "C3",  "-C4", "-C5"),
+                  Extra = c("-E1", "-E2", "E3",  "E4",  "E5" ),
+  Agree = c("-A1", "A2",  "A3",  "A4",  "A5"),
+  Neuro = c("N1", "N2", "N3", "N4", "N5")
+  )
+```
+
+```{r}
+bfi.scores <- scoreItems(keys = ocean.key, items = bfi, min = 1, max = 6)
+
+bfi.scores
+```
+
+```{r}
+print(bfi.scores, short = F)
+```
+
+```{r}
+headTail(bfi.scores$scores) 
+```
+
+```{r}
+bfi$OPEN <- bfi.scores$scores[,1]
+bfi$CONS <- bfi.scores$scores[,2]
+bfi$EXTRA <- bfi.scores$scores[,3]
+bfi$AGREE <- bfi.scores$scores[,4]
+bfi$NEURO <- bfi.scores$scores[,5]
+```
+
+```{r}
+describeBy(OPEN + CONS + EXTRA + AGREE + NEURO ~ gender, data = bfi)
+```
+
