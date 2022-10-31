@@ -76,6 +76,8 @@ ocean.key <- list(Open = c("O1",  "-O2", "O3",  "O4",  "-O5"),
   )
 ```
 
+### Scoring the scale
+
 ```{r}
 bfi.scores <- scoreItems(keys = ocean.key, items = bfi, min = 1, max = 6)
 
@@ -89,6 +91,8 @@ print(bfi.scores, short = F)
 ```{r}
 headTail(bfi.scores$scores) 
 ```
+
+### Adding score to dataset
 
 ```{r}
 bfi$OPEN <- bfi.scores$scores[,1]
