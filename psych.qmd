@@ -1,4 +1,4 @@
-# The psych package {#sec-psych .unnumbered}
+# The psych package {#sec-psych}
 
 ```{r}
 #| results: "asis"
