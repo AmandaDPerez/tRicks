@@ -5,7 +5,6 @@ project:
 book:
   title: "tRicks"
   author: "Jane Doe"
-  date: "10/31/2022"
   chapters:
     - index.qmd
     - intro.qmd
