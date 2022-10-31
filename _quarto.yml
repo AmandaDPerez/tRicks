@@ -3,8 +3,15 @@ project:
   output-dir: docs
 
 book:
-  title: "tRicks"
-  author: "Jane Doe"
+  title: "Tips & tRicks in R"
+  author: "Amanda D. Perez, PhD"
+  date-meta: today
+  reader-mode: true
+  page-footer:
+    left: |
+      This document was put together with Amanda D. Perez to create a single resource hosting code she regularly uses.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
   chapters:
     - index.qmd
     - intro.qmd
