@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidyverse.html" class="sidebar-item-text sidebar-link">The tidyverse</a>
+  <a href="./tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The tidyverse</span></a>
   </div>
 </li>
       </ul>
@@ -186,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"> <span class="header-section-number">2.1.1</span> Prerequisites</a></li>
   </ul>
 </li>
-  <li><a href="#sec-tidy-data" id="toc-sec-tidy-data" class="nav-link" data-scroll-target="#sec-tidy-data"> <span class="header-section-number">2.2</span> Tidy data</a></li>
+  <li><a href="#sec-describe" id="toc-sec-describe" class="nav-link" data-scroll-target="#sec-describe"> <span class="header-section-number">2.2</span> Describing Data</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -203,106 +203,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
-</header><div class="callout-note callout callout-style-simple">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>You are reading the work-in-progress second edition of R for Data Science. This chapter is largely complete and just needs final proof reading. You can find the complete first edition at <a href="https://r4ds.had.co.nz" class="uri">https://r4ds.had.co.nz</a>.</p>
-</div>
-</div>
-</div>
-<section id="introduction" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="introduction">
+</header><section id="introduction" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">2.1</span> Introduction</h2>
-<blockquote class="blockquote">
-<p>“Happy families are all alike; every unhappy family is unhappy in its own way.”<br>
-— Leo Tolstoy</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“Tidy datasets are all alike, but every messy dataset is messy in its own way.”<br>
-— Hadley Wickham</p>
-</blockquote>
-<p>In this chapter, you will learn a consistent way to organize your data in R using a system called <strong>tidy data</strong>. Getting your data into this format requires some work up front, but that work pays off in the long term. Once you have tidy data and the tidy tools provided by packages in the tidyverse, you will spend much less time munging data from one representation to another, allowing you to spend more time on the data questions you care about.</p>
-<p>In this chapter, you’ll first learn the definition of tidy data and see it applied to simple toy dataset. Then we’ll dive into the main tool you’ll use for tidying data: pivoting. Pivoting allows you to change the form of your data, without changing any of the values. We’ll finish up with a discussion of usefully untidy data, and how you can create it if needed.</p>
+<p>In this chapter, I will focus exclusively on the <code>psych</code> package. I will cover all of the functions that I regularly use.</p>
 <section id="prerequisites" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="prerequisites">
 <span class="header-section-number">2.1.1</span> Prerequisites</h3>
-<p>In this chapter we’ll focus on tidyr, a package that provides a bunch of tools to help tidy up your messy datasets. tidyr is a member of the core tidyverse.</p>
+<p>If you do not already have the <code>psych</code> package downloaded, you will first need to run <code>install.packages("psych")</code></p>
+<p>Then, you will be able to load the library and use its functions.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.1.2</span></span>
-<span><span class="co">#&gt; Warning: package 'readr' was built under R version 4.1.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>From this chapter on, we’ll suppress the loading message from <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code>.</p>
-</section></section><section id="sec-tidy-data" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="sec-tidy-data">
-<span class="header-section-number">2.2</span> Tidy data</h2>
-<p>You can represent the same underlying data in multiple ways. The example below shows the same data organised in four different ways. Each dataset shows the same values of four variables: <em>country</em>, <em>year</em>, <em>population</em>, and <em>cases</em> of TB (tuberculosis), but each dataset organizes the values in a different way.</p>
-
-<!-- TODO redraw as tables -->
+<p>We will be using the <code>bfi</code> dataset that is included in the <code>psych</code> package. It is described as follows: <em>25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included.</em></p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">table1</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
-<span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
-<span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
-<span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
-<span><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
-<span><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
-<span><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span>
-<span><span class="va">table2</span></span>
-<span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
-<span><span class="co">#&gt;   country      year type           count</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Afghanistan  1999 cases            745</span></span>
-<span><span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span></span>
-<span><span class="co">#&gt; 3 Afghanistan  2000 cases           2666</span></span>
-<span><span class="co">#&gt; 4 Afghanistan  2000 population  20595360</span></span>
-<span><span class="co">#&gt; 5 Brazil       1999 cases          37737</span></span>
-<span><span class="co">#&gt; 6 Brazil       1999 population 172006362</span></span>
-<span><span class="co">#&gt; # … with 6 more rows</span></span>
-<span><span class="va">table3</span></span>
-<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span><span class="co">#&gt;   country      year rate             </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
-<span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
-<span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
-<span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
-<span><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></span>
-<span><span class="co">#&gt; 5 China        1999 212258/1272915272</span></span>
-<span><span class="co">#&gt; 6 China        2000 213766/1280428583</span></span>
-<span></span>
-<span><span class="co"># Spread across two tibbles</span></span>
-<span><span class="va">table4a</span> <span class="co"># cases</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
-<span><span class="co">#&gt;   country     `1999` `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
-<span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
-<span><span class="co">#&gt; 3 China       212258 213766</span></span>
-<span><span class="va">table4b</span> <span class="co"># population</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
-<span><span class="co">#&gt;   country         `1999`     `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></span>
-<span><span class="co">#&gt; 2 Brazil       172006362  174504898</span></span>
-<span><span class="co">#&gt; 3 China       1272915272 1280428583</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">bfi</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>These are all representations of the same underlying data, but they are not equally easy to use. One of them, <code>table1</code>, will be much easier to work with inside the tidyverse because it’s tidy.</p>
-<p>There are three interrelated rules that make a dataset tidy:</p>
-<ol type="1">
-<li>Each variable is a column; each column is a variable.</li>
-<li>Each observation is row; each row is an observation.</li>
-<li>Each value is a cell; each cell is a single value.</li>
-</ol>
-<p><span class="quarto-unresolved-ref">?fig-tidy-structure</span> shows the rules visually.</p>
-<p>Why ensure that your data is tidy? There are two main advantages:</p>
-<ol type="1">
-<li><p>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p></li>
-<li><p>There’s a specific advantage to placing variables in columns because it allows R’s vectorised nature to shine. As you learned in <span class="quarto-unresolved-ref">?sec-mutate</span> and <span class="quarto-unresolved-ref">?sec-summarize</span>, most built-in R functions work with vectors of values. That makes transforming tidy data feel particularly natural.</p></li>
-</ol>
-<p>dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data. Here are a couple of small examples showing how you might work with <code>table1</code>.</p>
-<p>In the next chapter, we’ll pivot back to workflow to discuss the importance of code style, keeping your code “tidy” (ha!) in order to make it easy for you and others to read and understand your code.</p>
+</section></section><section id="sec-describe" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="sec-describe">
+<span class="header-section-number">2.2</span> Describing Data</h2>
+<p>The <code><a href="https://rdrr.io/pkg/psych/man/describe.html">describe()</a></code> function will return the following for any numeric variable: number of valid cases, mean, standard deviation, trimmed mean (with trim defaulting to .1) , median (standard or interpolated, mad: median absolute deviation (from the median), minimum, maximum, skew, kurtosis, standard error.</p>
+<p>Below I am <code>describing</code> the <code>A2</code> variable which has responses to the Agreeableness statement: <code>Inquire about others' well-being</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span><span class="va">bfi</span><span class="op">$</span><span class="va">A2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars    n mean   sd median trimmed  mad min max range  skew kurtosis   se
+X1    1 2773  4.8 1.17      5    4.98 1.48   1   6     5 -1.12     1.05 0.02</code></pre>
+</div>
+</div>
+<p>You can also describe by <code>groups</code> which will return descriptive statistics by groups. Below I am describing the <code>A2</code> variable by gender. Males = 1, Females =2.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.by.html">describeBy</a></span><span class="op">(</span><span class="va">A2</span> <span class="op">~</span> <span class="va">gender</span>, data <span class="op">=</span> <span class="va">bfi</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Descriptive statistics by group 
+gender: 1
+   vars   n mean   sd median trimmed  mad min max range  skew kurtosis   se
+X1    1 908  4.5 1.26      5    4.65 1.48   1   6     5 -0.89     0.34 0.04
+------------------------------------------------------------ 
+gender: 2
+   vars    n mean   sd median trimmed  mad min max range  skew kurtosis   se
+X1    1 1865 4.95 1.09      5    5.12 1.48   1   6     5 -1.24     1.55 0.03</code></pre>
+</div>
+</div>
+<p>Another useful function is <code>headTail</code> which will show the first and last couple of lines of a dataset.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/headtail.html">headTail</a></span><span class="op">(</span><span class="va">bfi</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       A1  A2  A3  A4  A5  C1  C2  C3  C4  C5  E1  E2  E3  E4  E5   N1  N2  N3
+61617   2   4   3   4   4   2   3   3   4   4   3   3   3   4   4    3   4   2
+61618   2   4   5   2   5   5   4   4   3   4   1   1   6   4   3    3   3   3
+61620   5   4   5   4   4   4   5   4   2   5   2   4   4   4   5    4   5   4
+61621   4   4   6   5   5   4   4   3   5   5   5   3   4   4   4    2   5   2
+...   ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...  ... ... ...
+67552   2   4   4   3   5   2   3   4   4   3   2   2   4   4   3 &lt;NA&gt;   3   2
+67556   2   3   5   2   5   5   5   5   1   1   2   2   6   3   6    3   4   3
+67559   5   2   2   4   4   5   5   5   2   6   2   2   4   5   4    5   5   6
+67560   2   3   1   4   2   5   5   3   3   3   3   3   1   2   2    1   2   2
+       N4  N5  O1  O2  O3  O4  O5 gender education age
+61617   2   3   3   6   3   4   3      1      &lt;NA&gt;  16
+61618   5   5   4   2   4   3   3      2      &lt;NA&gt;  18
+61620   2   3   4   2   5   5   2      2      &lt;NA&gt;  17
+61621   4   1   3   3   4   3   5      2      &lt;NA&gt;  17
+...   ... ... ... ... ... ... ...    ...       ... ...
+67552   3   3   6   3   5   4   2      1         4  27
+67556   3   1   5   1   6   4   3      2         4  29
+67559   4   1   5   2   5   5   1      1         4  31
+67560   1   1   3   1   3   5   1      2         4  50</code></pre>
+</div>
+</div>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -408,7 +374,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./tidyverse.html" class="pagination-link">
-        <span class="nav-page-text">The tidyverse</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The tidyverse</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,85 +1,52 @@
 # The psych package {#sec-psych}
 
-```{r}
-#| results: "asis"
-#| echo: false
-source("_common.R")
-status("complete")
-```
-
 ## Introduction
 
-> "Happy families are all alike; every unhappy family is unhappy in its own way."\
-> --- Leo Tolstoy
-
-> "Tidy datasets are all alike, but every messy dataset is messy in its own way."\
-> --- Hadley Wickham
-
-In this chapter, you will learn a consistent way to organize your data in R using a system called **tidy data**.
-Getting your data into this format requires some work up front, but that work pays off in the long term.
-Once you have tidy data and the tidy tools provided by packages in the tidyverse, you will spend much less time munging data from one representation to another, allowing you to spend more time on the data questions you care about.
-
-In this chapter, you'll first learn the definition of tidy data and see it applied to simple toy dataset.
-Then we'll dive into the main tool you'll use for tidying data: pivoting.
-Pivoting allows you to change the form of your data, without changing any of the values.
-We'll finish up with a discussion of usefully untidy data, and how you can create it if needed.
+In this chapter, I will focus exclusively on the `psych` package. I will cover all of the functions that I regularly use.
 
 ### Prerequisites
 
-In this chapter we'll focus on tidyr, a package that provides a bunch of tools to help tidy up your messy datasets.
-tidyr is a member of the core tidyverse.
+If you do not already have the `psych` package downloaded, you will first need to run `install.packages("psych")`
+
+Then, you will be able to load the library and use its functions.
 
 ```{r}
 #| label: setup
 #| message: false
 
-library(tidyverse)
+library(psych)
 ```
 
-From this chapter on, we'll suppress the loading message from `library(tidyverse)`.
-
-## Tidy data {#sec-tidy-data}
-
-You can represent the same underlying data in multiple ways.
-The example below shows the same data organised in four different ways.
-Each dataset shows the same values of four variables: *country*, *year*, *population*, and *cases* of TB (tuberculosis), but each dataset organizes the values in a different way.
-
-<!-- TODO redraw as tables -->
+We will be using the `bfi` dataset that is included in the `psych` package. It is described as follows: *25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included.*
 
 ```{r}
-table1
-table2
-table3
-
-# Spread across two tibbles
-table4a # cases
-table4b # population
+#| label: data
+#| message: false
+data(bfi)
 ```
 
-These are all representations of the same underlying data, but they are not equally easy to use.
-One of them, `table1`, will be much easier to work with inside the tidyverse because it's tidy.
+## Describing Data {#sec-describe}
 
-There are three interrelated rules that make a dataset tidy:
+The `describe()` function will return the following for any numeric variable: number of valid cases, mean, standard deviation, trimmed mean (with trim defaulting to .1) , median (standard or interpolated, mad: median absolute deviation (from the median), minimum, maximum, skew, kurtosis, standard error.
 
-1.  Each variable is a column; each column is a variable.
-2.  Each observation is row; each row is an observation.
-3.  Each value is a cell; each cell is a single value.
+Below I am `describing` the `A2` variable 
+which has responses to the Agreeableness statement: `Inquire about others' well-being`. 
 
-@fig-tidy-structure shows the rules visually.
+```{r}
+describe(bfi$A2)
+```
 
+You can also describe by `groups` which will return descriptive statistics by groups. Below I am describing the `A2` variable by gender. Males = 1, Females =2.  
 
-Why ensure that your data is tidy?
-There are two main advantages:
+```{r}
+describeBy(A2 ~ gender, data = bfi)
+```
 
-1.  There's a general advantage to picking one consistent way of storing data.
-    If you have a consistent data structure, it's easier to learn the tools that work with it because they have an underlying uniformity.
+Another useful function is `headTail` which will show the first and last couple of lines of a dataset.
 
-2.  There's a specific advantage to placing variables in columns because it allows R's vectorised nature to shine.
-    As you learned in @sec-mutate and @sec-summarize, most built-in R functions work with vectors of values.
-    That makes transforming tidy data feel particularly natural.
-
-dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data.
-Here are a couple of small examples showing how you might work with `table1`.
+```{r}
+headTail(bfi)
+```
 
 
-In the next chapter, we'll pivot back to workflow to discuss the importance of code style, keeping your code "tidy" (ha!) in order to make it easy for you and others to read and understand your code.
+## Scoring Scales

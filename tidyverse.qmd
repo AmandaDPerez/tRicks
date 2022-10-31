@@ -1,11 +1,4 @@
-# The tidyverse {#sec-tidyverse .unnumbered}
-
-```{r}
-#| results: "asis"
-#| echo: false
-source("_common.R")
-status("complete")
-```
+# The tidyverse {#sec-tidyverse}
 
 ## Introduction
 

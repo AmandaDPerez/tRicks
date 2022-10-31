@@ -1,9 +1,3 @@
 # Introduction
 
-This is a book created from markdown and executable code.
-
-See @knuth84 for additional discussion of literate programming.
-
-```{r}
-1 + 1
-```
+This is a resource created from markdown and executable code. The github repo containing all of the code can be [found here](https://github.com/AmandaDPerez/tRicks). These are pieces of code that I regularly use in my work and have created this site to create one cohesive location to easily search and find relevant code.
