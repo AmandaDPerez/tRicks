@@ -15,10 +15,11 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - summary.qmd
-    - references.qmd
 
-bibliography: references.bib
+    - part: data-exploration.qmd
+      chapters:
+        - psych.qmd
+        - tidyverse.qmd
 
 format:
   html:

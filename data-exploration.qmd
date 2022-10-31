@@ -1,0 +1,23 @@
+# Data Exploration {#sec-data-exploration-intro .unnumbered}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+Our goal in this part of the book is to give you a rapid overview of the main tools of data science: **importing**, **tidying**, **transforming**, and **visualizing data**....
+
+We want to show you the "whole game" of data science giving you just enough of all the major pieces so that you can tackle real, if simple, data sets.
+The later parts of the book, will hit each of these topics in more depth, increasing the range of data science challenges that you can tackle.
+
+Five chapters focus on the tools of data science:
+
+-   Visualisation is a great place to start with R programming, because the payoff is so clear: you get to make elegant and informative plots that help you understand data.
+    In @sec-data-visualisation you'll dive into visualization, learning the basic structure of a ggplot2 plot, and powerful techniques for turning data into plots.
+
+-   Visualisation alone is typically not enough, so in @sec-psych, you'll learn the key verbs that allow you to select important variables, filter out key observations, create new variables, and compute summaries.
+
+-   In @sec-tidyverse, you'll learn about tidy data, a consistent way of storing your data that makes transformation, visualization, and modelling easier.
+    You'll learn the underlying principles, and how to get your data into a tidy form.
+
