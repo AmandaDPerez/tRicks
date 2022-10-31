@@ -1,4 +1,4 @@
-# The psych package {#sec-tidyverse .unnumbered}
+# The tidyverse {#sec-tidyverse .unnumbered}
 
 ```{r}
 #| results: "asis"
