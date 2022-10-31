@@ -22,7 +22,13 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme:
+      - cosmo
+      - r4ds.scss
+    cover-image: cover.png
+    code-link: true
+    include-in-header: "plausible.html"
+    callout-appearance: simple
   pdf:
     documentclass: scrreprt
 
