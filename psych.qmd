@@ -102,6 +102,8 @@ bfi$AGREE <- bfi.scores$scores[,4]
 bfi$NEURO <- bfi.scores$scores[,5]
 ```
 
+Males = 1, Females =2.
+
 ```{r}
 describeBy(OPEN + CONS + EXTRA + AGREE + NEURO ~ gender, data = bfi)
 ```
