@@ -20,7 +20,7 @@ book:
       chapters:
         - psych.qmd
         - tidyverse.qmd
-  number-sections: true
+
 
 format:
   html:
@@ -30,8 +30,10 @@ format:
     cover-image: cover.png
     code-link: true
     callout-appearance: simple
+    number-sections: true
   pdf:
     documentclass: scrreprt
+    number-sections: true
 
 
 
