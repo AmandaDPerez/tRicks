@@ -89,7 +89,7 @@ code span.co {
 }
 
 code span.sc {
-    color: #00ff37
+    color: #00e5ff
 }
 
 code span.dv {
@@ -101,8 +101,13 @@ code span.fl {
 }
 
 code span.st {
-    color: rgb(0, 255, 55);
+    color: #a95eff;
 }
+
+code span.kw {
+    color: #00e5ff;
+}
+
 
 #toc li a {
     padding: 0.4045em 1.618em;
