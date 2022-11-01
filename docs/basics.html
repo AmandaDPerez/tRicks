@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.0.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Tips &amp; tRicks in R - 3&nbsp; The psych package</title>
+<title>Tips &amp; tRicks in R - 2&nbsp; The Basics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,8 +84,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./tidyverse.html" rel="next">
-<link href="./basics.html" rel="prev">
+<link href="./psych.html" rel="next">
+<link href="./data-exploration.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -118,7 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The psych package</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Basics</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -164,12 +164,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Basics</span></a>
+  <a href="./basics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./psych.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The psych package</span></a>
+  <a href="./psych.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The psych package</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -186,26 +186,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
 <li>
-<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"> <span class="header-section-number">3.1</span> Introduction</a>
+<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"> <span class="header-section-number">2.1</span> Introduction</a>
   <ul class="collapse">
-<li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"> <span class="header-section-number">3.1.1</span> Prerequisites</a></li>
+<li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"> <span class="header-section-number">2.1.1</span> Prerequisites</a></li>
   </ul>
 </li>
-  <li><a href="#sec-describe" id="toc-sec-describe" class="nav-link" data-scroll-target="#sec-describe"> <span class="header-section-number">3.2</span> Describing Data</a></li>
-  <li><a href="#sec-outliers" id="toc-sec-outliers" class="nav-link" data-scroll-target="#sec-outliers"> <span class="header-section-number">3.3</span> Outlier Detection</a></li>
+  <li><a href="#sec-describe" id="toc-sec-describe" class="nav-link" data-scroll-target="#sec-describe"> <span class="header-section-number">2.2</span> Describing Data</a></li>
+  <li><a href="#sec-outliers" id="toc-sec-outliers" class="nav-link" data-scroll-target="#sec-outliers"> <span class="header-section-number">2.3</span> Outlier Detection</a></li>
   <li>
-<a href="#sec-score" id="toc-sec-score" class="nav-link" data-scroll-target="#sec-score"> <span class="header-section-number">3.4</span> Scoring Scales</a>
+<a href="#sec-score" id="toc-sec-score" class="nav-link" data-scroll-target="#sec-score"> <span class="header-section-number">2.4</span> Scoring Scales</a>
   <ul class="collapse">
-<li><a href="#make-a-list-of-keys" id="toc-make-a-list-of-keys" class="nav-link" data-scroll-target="#make-a-list-of-keys"> <span class="header-section-number">3.4.1</span> Make a list of keys</a></li>
-  <li><a href="#scoring-the-scale" id="toc-scoring-the-scale" class="nav-link" data-scroll-target="#scoring-the-scale"> <span class="header-section-number">3.4.2</span> Scoring the scale</a></li>
-  <li><a href="#adding-score-to-dataset" id="toc-adding-score-to-dataset" class="nav-link" data-scroll-target="#adding-score-to-dataset"> <span class="header-section-number">3.4.3</span> Adding score to dataset</a></li>
+<li><a href="#make-a-list-of-keys" id="toc-make-a-list-of-keys" class="nav-link" data-scroll-target="#make-a-list-of-keys"> <span class="header-section-number">2.4.1</span> Make a list of keys</a></li>
+  <li><a href="#scoring-the-scale" id="toc-scoring-the-scale" class="nav-link" data-scroll-target="#scoring-the-scale"> <span class="header-section-number">2.4.2</span> Scoring the scale</a></li>
+  <li><a href="#adding-score-to-dataset" id="toc-adding-score-to-dataset" class="nav-link" data-scroll-target="#adding-score-to-dataset"> <span class="header-section-number">2.4.3</span> Adding score to dataset</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-psych" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The psych package</span></span></h1>
+<h1 class="title"><span id="sec-basics" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Basics</span></span></h1>
 </div>
 
 
@@ -217,11 +217,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
-</header><section id="introduction" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">3.1</span> Introduction</h2>
+</header><section id="introduction" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="introduction">
+<span class="header-section-number">2.1</span> Introduction</h2>
 <p>In this chapter, I will focus exclusively on the <code>psych</code> package. I will cover all of the functions that I regularly use.</p>
-<section id="prerequisites" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="prerequisites">
-<span class="header-section-number">3.1.1</span> Prerequisites</h3>
+<section id="prerequisites" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="prerequisites">
+<span class="header-section-number">2.1.1</span> Prerequisites</h3>
 <p>If you do not already have the <code>psych</code> package downloaded, you will first need to run <code>install.packages("psych")</code></p>
 <p>Then, you will be able to load the library and use its functions.</p>
 <div class="cell">
@@ -235,8 +235,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">bfi</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="sec-describe" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="sec-describe">
-<span class="header-section-number">3.2</span> Describing Data</h2>
+</section></section><section id="sec-describe" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="sec-describe">
+<span class="header-section-number">2.2</span> Describing Data</h2>
 <p>The <code><a href="https://rdrr.io/pkg/psych/man/describe.html">describe()</a></code> function will return the following for any numeric variable: number of valid cases, mean, standard deviation, trimmed mean (with trim defaulting to .1) , median (standard or interpolated, mad: median absolute deviation (from the median), minimum, maximum, skew, kurtosis, standard error.</p>
 <p>Below I am <code>describing</code> the <code>A2</code> variable which has responses to the Agreeableness statement: <code>Inquire about others' well-being</code>.</p>
 <div class="cell">
@@ -287,20 +287,20 @@ X1    1 1865 4.95 1.09      5    5.12 1.48   1   6     5 -1.24     1.55 0.03</co
 67560   1   1   3   1   3   5   1      2         4  50</code></pre>
 </div>
 </div>
-</section><section id="sec-outliers" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="sec-outliers">
-<span class="header-section-number">3.3</span> Outlier Detection</h2>
+</section><section id="sec-outliers" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="sec-outliers">
+<span class="header-section-number">2.3</span> Outlier Detection</h2>
 <p>Find and graph Mahalanobis squared distances to detect outliers using the <code>outlier</code> function. The Mahalanobis distance is D^2 = (x-μ)’ Σ^-1 (x-μ) where Σ is the covariance of the x matrix. D2 may be used as a way of detecting outliers in distribution. Large D2 values, compared to the expected Chi Square values indicate an unusual response pattern. The outlier values are in the vector d2.The mahalanobis function in stats does not handle missing data, therefore I always add in <code>na.rm = TRUE</code> so that NA values are removed.</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/outlier.html">outlier</a></span><span class="op">(</span><span class="va">bfi</span>, plot<span class="op">=</span> <span class="cn">TRUE</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="psych_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="basics_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="sec-score" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="sec-score">
-<span class="header-section-number">3.4</span> Scoring Scales</h2>
+</section><section id="sec-score" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="sec-score">
+<span class="header-section-number">2.4</span> Scoring Scales</h2>
 <p>My biggest use of the <code>psych</code> package is scale scoring. This example will score the BFI (Big Five Inventory) personality scale.</p>
-<section id="make-a-list-of-keys" class="level3" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="make-a-list-of-keys">
-<span class="header-section-number">3.4.1</span> Make a list of keys</h3>
+<section id="make-a-list-of-keys" class="level3" data-number="2.4.1"><h3 data-number="2.4.1" class="anchored" data-anchor-id="make-a-list-of-keys">
+<span class="header-section-number">2.4.1</span> Make a list of keys</h3>
 <p>First, we need to create a list that will tell R how to score our scale. In the <code>bfi</code> dataset, the Openness items begin with O, the Conscientiousness items begin with C, the Extraversion items begin with E, the Agreeableness items begin with A, and the Nueroticism items begin with N. We will also need to account for any reverse score items by adding a ‘-’ sign to the variable names that need to be reversed.</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ocean.key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Open <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"O1"</span>,  <span class="st">"-O2"</span>, <span class="st">"O3"</span>,  <span class="st">"O4"</span>,  <span class="st">"-O5"</span><span class="op">)</span>,</span>
@@ -310,8 +310,8 @@ X1    1 1865 4.95 1.09      5    5.12 1.48   1   6     5 -1.24     1.55 0.03</co
 <span>  Neuro <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"N1"</span>, <span class="st">"N2"</span>, <span class="st">"N3"</span>, <span class="st">"N4"</span>, <span class="st">"N5"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="scoring-the-scale" class="level3" data-number="3.4.2"><h3 data-number="3.4.2" class="anchored" data-anchor-id="scoring-the-scale">
-<span class="header-section-number">3.4.2</span> Scoring the scale</h3>
+</section><section id="scoring-the-scale" class="level3" data-number="2.4.2"><h3 data-number="2.4.2" class="anchored" data-anchor-id="scoring-the-scale">
+<span class="header-section-number">2.4.2</span> Scoring the scale</h3>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bfi.scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="va">ocean.key</span>, items <span class="op">=</span> <span class="va">bfi</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
@@ -469,8 +469,8 @@ N5 0.24 0.24 0.14 0.18 0.12 0.09 0.01</code></pre>
 67560  4.6  4.2   2.6     3   1.4</code></pre>
 </div>
 </div>
-</section><section id="adding-score-to-dataset" class="level3" data-number="3.4.3"><h3 data-number="3.4.3" class="anchored" data-anchor-id="adding-score-to-dataset">
-<span class="header-section-number">3.4.3</span> Adding score to dataset</h3>
+</section><section id="adding-score-to-dataset" class="level3" data-number="2.4.3"><h3 data-number="2.4.3" class="anchored" data-anchor-id="adding-score-to-dataset">
+<span class="header-section-number">2.4.3</span> Adding score to dataset</h3>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bfi</span><span class="op">$</span><span class="va">OPEN</span> <span class="op">&lt;-</span> <span class="va">bfi.scores</span><span class="op">$</span><span class="va">scores</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">bfi</span><span class="op">$</span><span class="va">CONS</span> <span class="op">&lt;-</span> <span class="va">bfi.scores</span><span class="op">$</span><span class="va">scores</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
@@ -600,13 +600,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./basics.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Basics</span></span>
+      <a href="./data-exploration.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data Exploration</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidyverse.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The tidyverse</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./psych.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The psych package</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

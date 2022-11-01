@@ -18,6 +18,7 @@ book:
 
     - part: data-exploration.qmd
       chapters:
+        - basics.qmd
         - psych.qmd
         - tidyverse.qmd
 
