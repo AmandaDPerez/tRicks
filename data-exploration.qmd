@@ -14,7 +14,8 @@ The later parts of the book, will hit each of these topics in more depth, increa
 Five chapters focus on the tools of data science:
 
 -   Visualisation is a great place to start with R programming, because the payoff is so clear: you get to make elegant and informative plots that help you understand data.
-    In ...  you'll dive into visualization, learning the basic structure of a ggplot2 plot, and powerful techniques for turning data into plots.
+    In ...  so in 
+@sec-basics, you'll learn the key verbs th
 
 -   Visualisation alone is typically not enough, so in 
 @sec-psych, you'll learn the key verbs that allow you to select important variables, filter out key observations, create new variables, and compute summaries.
